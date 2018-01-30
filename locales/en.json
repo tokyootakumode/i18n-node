@@ -44,6 +44,7 @@
 		"other": "There are %d monkeys in the tree"
 	},
 	"plurals with intervals in string (no object)": "[0] a zero rule|[2,5] two to five (included)|and a catchall rule",
+	"plurals without the first interval in string (no object)": "a first rule|a second rule",
 	"plurals with intervals in _other_ missing _one_": {
 		"other": "[0] a zero rule|[2,5] two to five (included)|and a catchall rule"
 	},

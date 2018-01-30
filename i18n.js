@@ -784,6 +784,10 @@ module.exports = (function() {
     var returnPhrase = phrase;
     var phrases = phrase.split(/\|/);
 
+    if (!/^\s*([\(\)\[\]\d,]+)/.test(phrases[0])) {
+      return returnPhrase;
+    }
+
     // some() breaks on 1st true
     phrases.some(function(p) {
       var matches = p.match(/^\s*([\(\)\[\]\d,]+)?\s*(.*)$/);

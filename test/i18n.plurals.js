@@ -71,6 +71,14 @@ describe('parsing plural intervals from strings', function() {
     );
   });
 
+  it('plurals without the first interval in string (no object)', function() {
+    var p = 'plurals without the first interval in string (no object)';
+    should.equal(
+      pluralTest.__(p),
+      "a first rule|a second rule"
+    );
+  });
+
   it('plurals with intervals in _other_ missing _one_', function() {
     var p = 'plurals with intervals in _other_ missing _one_';
     should.equal(
