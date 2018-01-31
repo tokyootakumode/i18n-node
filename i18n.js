@@ -138,9 +138,6 @@ module.exports = (function() {
     objectNotation = (typeof opt.objectNotation !== 'undefined') ? opt.objectNotation : false;
     if (objectNotation === true) objectNotation = '.';
 
-    // read language fallback map
-    fallbacks = (typeof opt.fallbacks === 'object') ? opt.fallbacks : {};
-
     // setting custom logger functions
     logDebugFn = (typeof opt.logDebugFn === 'function') ? opt.logDebugFn : debug;
     logWarnFn = (typeof opt.logWarnFn === 'function') ? opt.logWarnFn : warn;
@@ -151,6 +148,23 @@ module.exports = (function() {
 
     // when missing locales we try to guess that from directory
     opt.locales = opt.locales || guessLocales(directory);
+
+    // read language fallback map
+    if (typeof opt.fallbacks === 'object') {
+      fallbacks = opt.fallbacks;
+    } else {
+      fallbacks = preserveLegacyCase ? opt.locales.reduce(function(fallbacks, locale) {
+        if (!preserveLegacyCase) {
+          return fallbacks;
+        }
+        var lr = locale.split('-', 2);
+        if (lr.length !== 1) {
+          // fallback like from zh-TW to zh-tw.
+          fallbacks[lr[0] + '-' + lr[1].toUpperCase()] = lr[0] + '-' + lr[1].toLowerCase();
+        }
+        return fallbacks;
+      }, {}) : {};
+    }
 
     // implicitly read all locales
     if (Array.isArray(opt.locales)) {
@@ -1123,6 +1137,10 @@ module.exports = (function() {
     } catch (e) {
       logDebug('creating locales dir in: ' + directory);
       fs.mkdirSync(directory, directoryPermissions);
+    }
+
+    if (!locales[locale] && fallbacks[locale]) {
+      locale = fallbacks[locale];
     }
 
     // first time init has an empty file
