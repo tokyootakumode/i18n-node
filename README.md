@@ -6,7 +6,7 @@ Stores language files in json files compatible to [webtranslateit](http://webtra
 Adds new strings on-the-fly when first used in your app.
 No extra parsing needed.
 
-[![Linux/OSX Build][travis-image]][travis-url]
+[![Build Status](https://travis-ci.org/tokyootakumode/i18n-node.svg?branch=master)](https://travis-ci.org/tokyootakumode/i18n-node)
 [![Windows Build][appveyor-image]][appveyor-url]
 [![NPM version][npm-image]][npm-url]
 [![Dependency Status][dependency-image]][dependency-url]
